@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+[PRO] Purpose: Ensure the main app always fills viewport height and avoids sideways scroll.
+Context: Some screens grow beyond width due to nested flex layouts.
+Edge cases: iOS content bounce may reveal background; safe-area insets remain respected.
+Notes: Keep overflow-x hidden globally; vertical scroll handled per-container.
+*/
+html, body, #root {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+/*
+[PRO] Purpose: Provide a subtle WhatsApp-like wallpaper without external assets.
+Context: Chat background should be visually soft and distraction-free.
+Edge cases: Radial grid must scale well on retina displays.
+Notes: Color chosen to be neutral and work under both light and dark UI Chrome.
+*/
+.chat-wallpaper {
+  background-color: #ECE5DD;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.03) 1.2px, transparent 1.2px);
+  background-size: 12px 12px;
+}
+
+/*
+[PRO] Purpose: Smooth scrolling on touch devices.
+Context: Avoid jitter on iOS Safari; preserve overscroll behavior logic in chat views.
+*/
+.scroll-area {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* Desktop scrollbars (subtle, minimal) */
+.scroll-area::-webkit-scrollbar { width: 8px; }
+.scroll-area::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.15);
+  border-radius: 4px;
+}
+
+/*
+[PRO] Purpose: Explicit bounce behavior for iOS chat scroll.
+*/
+.ios-bounce { -webkit-overflow-scrolling: touch; }
+
+/* Utility to hide scrollbars in one direction only */
+.hide-x-scroll { overflow-x: hidden; }
+.hide-y-scroll { overflow-y: hidden; }
+
+/*
+[PRO] Purpose: Uniform thin scrollbars only for devices that support hover (desktop).
+Context: Prevents visual noise on touch screens.
+*/
+@media (hover: hover) and (pointer: fine) {
+  *::-webkit-scrollbar { width: 8px; height: 8px; }
+  *::-webkit-scrollbar-thumb { background: rgba(0,0,0,.2); border-radius: 8px; }
+  *::-webkit-scrollbar-track { background: transparent; }
+}
+
+/*
+[PRO] Purpose: Respect screen safe areas (iPhone notch / Android cutout).
+*/
+.safe-areas {
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+}
+.safe-top { padding-top: env(safe-area-inset-top, 0px); }
+
+/* Firefox scrollbar normalization */
+* {
+  scrollbar-width: thin;
+}
