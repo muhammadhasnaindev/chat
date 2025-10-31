@@ -1,0 +1,50 @@
+# --- Node & OS ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.DS_Store
+Thumbs.db
+
+# --- Env / secrets ---
+.env
+*.env
+server/.env
+client/.env
+
+# --- Builds / caches ---
+dist/
+build/
+.tmp/
+.temp/
+coverage/
+vite.config.ts.timestamp-*
+.vite/
+.eslintcache
+.cache/
+.next/
+.out/
+
+# --- Frontend (Vite/React) ---
+client/dist/
+client/.vite/
+client/node_modules/
+
+# --- Backend (Express) ---
+server/dist/
+server/build/
+server/node_modules/
+server/uploads/
+server/certs/
+
+# --- PM2 / logs ---
+logs/
+*.log
+pm2.log
+pm2.pid
+
+# --- Misc ---
+*.local
+*.swp
+*.swo
